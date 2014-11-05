@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>jQuery Sliding Panel</title>
+        <style>
+            .panel { width:25%; min-width:300px; height:100%; margin-left:-1%; margin-right:-1%; overflow:auto; display:none; border:solid 1px; border-top:0; background:#ffffff; }
+            .panel-content { padding:20px; }
+
+            /* Apparence seulement */
+            body { font-size:0.9em; }
+            section.sample { padding:20px; }
+            section.roman { width:400px; margin:auto; font-size:0.9em; }
+        </style>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://raw.githubusercontent.com/rochal/jQuery-slimScroll/master/jquery.slimscroll.min.js"></script>
+        <script src="js/slidingPanel.js"></script>
+        <script>
+            $(function() {
+
+                // Exemples 1 et 2
+                $('a[data-panel-side]').slidingPanel();
+
+                // Exemple 3
+                $('a[data-panel="#left-panel-ajax"]').slidingPanel({
+                    onShow: function(panel, a) {
+                        $(panel).find('> .panel-content > .content')
+                                .load($(a).attr('href') + ' #notes');
+                    }
+                });
+
+                // Exemple 4
+                $('a[data-panel="#right-panel-ajax"]').slidingPanel({
+                    side: 'right',
+                    onInitialize: function(panel, a) {
+                        $(panel)
+                            .wrapInner('<div class="panel-scroll" />').find('> .panel-scroll')
+                            .slimScroll( {
+                                position: 'left',
+                                railVisible: true,
+                                wheelStep: 4,
+                                height: "100%"
+                            })
+                            .find('> .panel-content > .content')
+                                .load($(a).attr('href') + ' #notes');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+        <h1>JQuery Sliding Panel</h1>
+
+        <section class="sample">
+            1- <a href="#left-panel" data-panel-side="left">Panneau de gauche</a>
+            <div id="left-panel" class="panel">
+                <a href="#" data-panel-close>Fermer le panneau</a>
+                <p>Voici mon panneau de gauche</p>
+            </div>
+        </section>
+        <section class="sample">
+            2 - <a href="#right-panel" data-panel-side="right">Panneau de droite</a>
+            <div id="right-panel" class="panel">
+                <a href="#" data-panel-close>Fermer le panneau</a>
+                <p>Voici mon panneau de droite</p>
+            </div>
+        </section>
+        <section class="sample">
+            3 - <a href="notes.html" data-panel="#left-panel-ajax">Panneau de gauche (ajax)</a>
+            <div id="left-panel-ajax" class="panel">
+                <a href="#" data-panel-close>Fermer le panneau</a>
+                <div class="content">Chargement...</div>
+            </div>
+        </section>
+        <section class="sample">
+            4 - <a href="notes.html" data-panel="#right-panel-ajax">Panneau de droite (ajax)</a>
+            <p>Avec <a href="https://github.com/rochal/jQuery-slimScroll" target="_blank">rochal/jQuery-slimScroll</a></p>
+            <div id="right-panel-ajax" class="panel">
+                <a href="#" data-panel-close>Fermer le panneau</a>
+                <div class="content">Chargement...</div>
+            </div>
+        </section>
+
+        <section class="roman">
+            <h1>Pour tester la barre déroulante</h1>
+
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer arcu diam, semper eu risus id, maximus laoreet elit. Quisque rhoncus luctus lorem quis luctus. Mauris efficitur, ex at venenatis dignissim, felis augue vulputate neque, id volutpat tellus dui id lectus. Quisque posuere pretium tempus. Ut quis placerat justo. Pellentesque risus est, venenatis in cursus nec, varius eu arcu. Cras velit urna, ultricies vel pharetra sit amet, accumsan vel tellus. Curabitur in finibus neque. Curabitur sit amet orci ac nibh iaculis mattis at sit amet turpis. Fusce a pretium tortor. Nam sit amet pulvinar nisl.
+            </p>
+
+            <p>
+            Vivamus pellentesque laoreet elit at sodales. Fusce metus neque, ornare sed odio mollis, semper luctus lorem. Suspendisse feugiat pulvinar orci vitae faucibus. Curabitur mollis sed dui sagittis tempor. Curabitur laoreet bibendum cursus. Nam tellus ante, lacinia in metus pharetra, scelerisque placerat risus. Phasellus ut nibh vestibulum, commodo lacus eget, tempus tortor. Duis ut pretium elit, id mattis ipsum. Integer tempus iaculis mi, sit amet vehicula dui feugiat eu. Nullam pellentesque elit lacus, et laoreet leo euismod et. Maecenas vel accumsan urna. Mauris et egestas libero. Fusce ac magna eu est tincidunt faucibus. Nunc sit amet blandit urna, sit amet condimentum elit. Sed nec bibendum diam.
+            </p>
+
+            <p>
+            Suspendisse bibendum gravida ante, at auctor nulla ornare quis. Proin ipsum quam, aliquam vitae leo molestie, dignissim dictum libero. Ut nec tellus venenatis, ornare diam at, sagittis dui. Fusce lobortis urna vel faucibus viverra. Suspendisse potenti. Aliquam tristique et magna vitae consectetur. In vel commodo arcu. Sed justo ipsum, gravida id mi vitae, porttitor blandit massa. Donec tortor leo, sollicitudin eget tempor sed, dignissim porta orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus quis ultrices nisi, id varius felis. Suspendisse at neque euismod, tempus odio et, lacinia enim. Nullam sed justo nec urna vestibulum condimentum. Quisque a sapien accumsan, facilisis magna eget, congue dolor. Aliquam erat volutpat. Vestibulum quis tempus mauris.
+            </p>
+
+            <p>
+            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rhoncus tincidunt dolor, sed semper dolor congue ac. Fusce nunc diam, consequat in sollicitudin vel, fringilla a nibh. Vivamus rhoncus libero et pharetra molestie. Curabitur aliquam vestibulum magna, ut mollis magna aliquet in. Ut nec varius erat. Praesent ex ipsum, luctus vitae mi ac, efficitur feugiat est. Suspendisse lacus ligula, convallis at pellentesque nec, placerat sed nisl. Integer id turpis pulvinar, luctus erat et, viverra ante. Maecenas est metus, euismod in nisi ac, porta tempor libero. Curabitur non dolor vestibulum, vestibulum augue vitae, scelerisque urna. Nunc et tellus eu nisl bibendum consectetur ac a enim. Phasellus efficitur commodo magna nec dictum. Sed dignissim laoreet semper. Maecenas ac nulla eget nisl ultrices lacinia sit amet eget enim. Ut ipsum elit, maximus ut molestie ac, suscipit nec dolor.
+            </p>
+        </section>
+    </body>
+</html>
