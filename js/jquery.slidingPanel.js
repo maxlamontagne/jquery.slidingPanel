@@ -10,9 +10,7 @@
     'use strict';
 
     $.fn.slidingPanel = function(options) {
-
         return this.each(function() {
-
             var config = $.extend({
                 duration: 400,
                 easing: 'swing',
@@ -28,7 +26,6 @@
             }
 
             $(this).bind('click', function(e) {
-
                 var $button = $(this);
 
                 var $panel = $button.attr('data-panel')
@@ -38,11 +35,9 @@
                 var css = { position: 'fixed', top: 0 };
                 css[config.side] = '-' + $panel.width() + 'px';
 
-                $panel.css(css);
-
                 if (!$panel.data('panel-initialized')) {
-
-                    $panel.addClass('ui-sliding-panel')
+                    $panel.css(css)
+                          .addClass('ui-sliding-panel')
                           .wrapInner('<div class="panel-content" />');
 
                     var animationProperties = {};
@@ -52,8 +47,10 @@
 
                         $panel.data('panel-state', 'animation').show();
                         $panel.appendTo('body'); // Put in front
-                        animationProperties[config.side] = '+=' + $panel.width();
+
                         config.onShow($panel[0], $button[0]);
+
+                        animationProperties[config.side] = '+=' + $panel.width();
                         $panel.animate( animationProperties,
                                         config.duration,
                                         config.easing,
@@ -67,8 +64,10 @@
                         if ($panel.data('panel-state') === 'animation') return;
 
                         $panel.data('panel-state', 'animation');
-                        animationProperties[config.side] = '-=' + $panel.width();
+
                         config.onHide($panel[0], $button[0]);
+
+                        animationProperties[config.side] = '-=' + $panel.width();
                         $panel.animate( animationProperties,
                                         config.duration,
                                         config.easing,
