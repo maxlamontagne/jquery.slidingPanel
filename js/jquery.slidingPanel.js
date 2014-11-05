@@ -81,6 +81,9 @@
 
                     $panel.on('click', 'a[data-panel-close]', function(ev) {
                         $panel.trigger('hide.slidingPanel');
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
                     });
 
                     $panel.appendTo('body')
